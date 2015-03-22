@@ -19,6 +19,7 @@ public class Tree {
 		createStates();
 	}
 	
+	//Transform the grid into a two dimensional array of States objects
 	public void createStates(){
 		for(int i=0; i<grid.row; i++){
 			for(int j =0; j<grid.col; j++){

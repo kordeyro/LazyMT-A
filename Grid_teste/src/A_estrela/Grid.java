@@ -58,8 +58,7 @@ public class Grid{
 	}
 	
 	//print the grid to the console
-	void printGrid(){
-		boolean lastCol = false;
+	public void printGrid(){
 		for(int i =0; i<row;i++){
 			for(int j=0;j<col;j++){
 				printCell(i, j);

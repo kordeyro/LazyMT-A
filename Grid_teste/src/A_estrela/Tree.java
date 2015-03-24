@@ -29,6 +29,7 @@ public class Tree {
 		Random rand = new Random();
 		ArrayList <State> possibleStates = getSuccessors(target);
 		int index = rand.nextInt(possibleStates.size());
+		moveFromTo(stateArray[target.posX][target.posY], stateArray[possibleStates.get(index).posX][possibleStates.get(index).posY]);
 		target.posX=possibleStates.get(index).posX;
 		target.posY=possibleStates.get(index).posY;
 	}
@@ -183,12 +184,14 @@ public class Tree {
 		return h;
 	}
 	
-	public void initState(State s, int counter){
+	public void initState(State s, int counter,ArrayList<Integer> deltah){
 		if(s.search != counter && s.search!=0){
 			if(pathcost.size()!=0){
 				if(s.g + s.h < pathcost.get(s.search))					
-					s.h = pathcost.get(s.search-s.g);
-				//TODO
+					s.h = pathcost.get(s.search)-s.g;
+				s.h = s.h-(deltah.get(counter)-deltah.get(s.search));
+				s.h = (s.h > calcH(new Point(s.posX,s.posY))) ? s.h : calcH(new Point(s.posX,s.posY));
+				s.g=100;
 			}
 		}else{
 			if(s.search==0)
@@ -218,10 +221,6 @@ public class Tree {
 			s1.isAgent=false;
 			s2.isAgent=true;
 		}
-		if(s2.isAgent)
-			System.out.println("S2 is now an AGENT!");
-		if(s1.isAgent)
-			System.out.println("S1 is STILL an AGENT!");
 	}
 	
 	public int getNumRows(){
